@@ -54,15 +54,15 @@ namespace HeartOfGold.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "747530945417664",
+               appSecret: "1ce296fcf490ade004fc4ea510f285ad");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "297452153150-l4i026etmjgfd1hn1prkjlg3h98o5ib4.apps.googleusercontent.com",
+                ClientSecret = "baGV-oOc_Kbx0xBLvuUuH3eb"
+            });
         }
     }
 }
