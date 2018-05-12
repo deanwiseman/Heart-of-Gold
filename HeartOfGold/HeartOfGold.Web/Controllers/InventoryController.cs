@@ -16,10 +16,39 @@ namespace HeartOfGold.Web.Controllers
         private DatabaseContext db = new DatabaseContext();
 
         // GET: Items
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
-            return View(db.Items.ToList());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewBag.DescriptionSortParam = sortOrder == "Description" ? "Description_desc" : "Description";
+
+            var items = from i in db.Items
+                           select i;
+
+            // Search for item in inventory
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                items = items.Where(i => i.Name.Contains(searchString)
+                                       || i.Description.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    items = items.OrderByDescending(i => i.Name);
+                    break;
+                case "Description":
+                    items = items.OrderBy(i => i.Description);
+                    break;
+                case "Description_desc":
+                    items = items.OrderByDescending(i => i.Description);
+                    break;
+                default:
+                    items = items.OrderBy(i => i.Name);
+                    break;
+            }
+            return View(items.ToList());
         }
+    
 
         // GET: Items/Details/5
         public ActionResult Details(int? id)
